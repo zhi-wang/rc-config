@@ -35,11 +35,13 @@ function add_dir_to_path__() {
   pathname__=$3
   path__=$(eval echo -e "\$$pathname__")
   if ! contains__ $path__ $dir__; then
-    if [ $flag__ = front__ ]; then
-      export $pathname__=$dir__:$path__
-    fi
-    if [ $flag__ = back__ ]; then
-      export $pathname__=$path__:$dir__
+    if [ -d $dir__ ]; then
+      if [ $flag__ = front__ ]; then
+        export $pathname__=$dir__:$path__
+      fi
+      if [ $flag__ = back__ ]; then
+        export $pathname__=$path__:$dir__
+      fi
     fi
   fi
 }
@@ -47,7 +49,7 @@ function insert_dir_to_front__() {
   add_dir_to_path__ front__ $1 $2
 }
 function append_dir_to_back__() {
-  add_dir_to_path__ back__ $2 $1
+  add_dir_to_path__ back__ $1 $2
 }
 
 
