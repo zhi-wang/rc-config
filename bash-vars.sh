@@ -1,6 +1,10 @@
 . $(dirname "${BASH_SOURCE[0]}")/bash-funcs.sh
 
 
+# local/arsenal
+append_dir_to_back__ $HOME/local/arsenal PATH
+
+
 # cuda
 if linux__; then
   insert_dir_to_front__ /usr/local/cuda/bin PATH
