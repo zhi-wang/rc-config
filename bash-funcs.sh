@@ -18,9 +18,9 @@ function __linux() {
 }
 
 
-# contains__(string__, substring__)
+# contains(string, substring)
 # string contains substring? Yes: 0, No: 1.
-function contains__() {
+function __contains() {
   string__=$1
   substring__=$2
   if test "${string__#*$substring__}" != "$string__"; then
@@ -34,7 +34,7 @@ function __add_dir_to_path() {
   dir__=$2
   pathname__=$3
   path__=$(eval echo -e "\$$pathname__")
-  if ! contains__ $path__ $dir__; then
+  if ! __contains $path__ $dir__; then
     if [ -d $dir__ ]; then
       if [ $flag__ = front__ ]; then
         export $pathname__=$dir__:$path__
