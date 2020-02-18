@@ -2,16 +2,16 @@
 
 
 # local/arsenal
-append_dir_to_back__ $HOME/local/arsenal PATH
+__append_dir_to_back $HOME/local/arsenal PATH
 
 
 # cuda
-if linux__; then
-  insert_dir_to_front__ /usr/local/cuda/bin PATH
-  insert_dir_to_front__ /usr/local/cuda/lib64 LD_LIBRARY_PATH
+if __linux; then
+  __insert_dir_to_front /usr/local/cuda/bin PATH
+  __insert_dir_to_front /usr/local/cuda/lib64 LD_LIBRARY_PATH
 fi
 # pgi
-if linux__; then
-  append_dir_to_back__ /opt/pgi/linux86-64-llvm/2019/bin PATH
-  append_dir_to_back__ /opt/pgi/linux86-64-llvm/2019/lib LD_LIBRARY_PATH
+if __linux; then
+  __append_dir_to_back /opt/pgi/linux86-64-llvm/2019/bin PATH
+  __append_dir_to_back /opt/pgi/linux86-64-llvm/2019/lib LD_LIBRARY_PATH
 fi

@@ -1,16 +1,16 @@
-system__=$(uname -s)
-shell__=$(ps -o comm= $$)
+__system=$(uname -s)
+__shell=$(ps -o comm= $$)
 
 
-function macos__() {
-  if [ $system__ = Darwin ]; then
+function __macos() {
+  if [ $__system = Darwin ]; then
     return 0
   else
     return 1
   fi
 }
-function linux__() {
-  if [ $system__ = Linux ]; then
+function __linux() {
+  if [ $__system = Linux ]; then
     return 0
   else
     return 1
@@ -29,7 +29,7 @@ function contains__() {
     return 1
   fi
 }
-function add_dir_to_path__() {
+function __add_dir_to_path() {
   flag__=$1 # front__ or back__
   dir__=$2
   pathname__=$3
@@ -45,15 +45,15 @@ function add_dir_to_path__() {
     fi
   fi
 }
-function insert_dir_to_front__() {
-  add_dir_to_path__ front__ $1 $2
+function __insert_dir_to_front() {
+  __add_dir_to_path front__ $1 $2
 }
-function append_dir_to_back__() {
-  add_dir_to_path__ back__ $1 $2
+function __append_dir_to_back() {
+  __add_dir_to_path back__ $1 $2
 }
 
 
-function tar_cx__() {
+function __tar_cx() {
   cx_ext__=cx-save__
   opt__=$1
   file__=$2
@@ -136,11 +136,42 @@ function tar_cx__() {
   esac
 }
 function dotar() {
-  tar_cx__ c $*
+  __tar_cx c $*
 }
 function untar() {
-  tar_cx__ x $*
+  __tar_cx x $*
 }
 function viewtar() {
   tar -tf $*
+}
+
+
+function __load-nvidia() {
+  if __linux; then
+    # arg = load / unload / status
+    arg__=$1
+    if [ $arg__ = 'status' ]; then
+      # print current status
+      cat /proc/acpi/bbswitch
+      echo Running nvidia-smi...
+      nvidia-smi
+    elif [ $arg__ = 'unload' ]; then
+      # unload a driver then turn the card off
+      sudo modprobe -r nvidia-uvm nvidia
+      echo OFF | sudo tee /proc/acpi/bbswitch
+    elif [ $arg__ = 'load' ]; then
+      # turn on the card first then load a driver
+      echo ON | sudo tee /proc/acpi/bbswitch
+      sudo modprobe nvidia-uvm nvidia
+    fi
+  fi
+}
+function load-nvidia() {
+  __load-nvidia load
+}
+function unload-nvidia() {
+  __load-nvidia unload
+}
+function status-nvidia() {
+  __load-nvidia status
 }
