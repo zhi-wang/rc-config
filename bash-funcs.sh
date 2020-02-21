@@ -175,3 +175,8 @@ function unload-nvidia() {
 function status-nvidia() {
   __load-nvidia status
 }
+
+
+function git-tree() {
+  git log --oneline --decorate --all --graph
+}
