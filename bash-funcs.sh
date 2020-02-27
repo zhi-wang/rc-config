@@ -39,7 +39,7 @@ function __add_dir_to_path() {
     if [ -d $dir ]; then
       if [ -z $path ]; then
         # if path is empty
-        export $pathname=$dir
+        export $pathname=:$dir
       elif [ $flag = front ]; then
         export $pathname=$dir:$path
       elif [ $flag = back ]; then
