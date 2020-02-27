@@ -1,28 +1,38 @@
-. $(dirname "${BASH_SOURCE[0]}")/bash-funcs.sh
+if [ -h "${BASH_SOURCE[0]}" ]; then
+  # if it is a symlink
+  . $(dirname $(readlink -f "${BASH_SOURCE[0]}"))/bash-funcs.sh
+else
+  . $(dirname "${BASH_SOURCE[0]}")/bash-funcs.sh
+fi
 
 
 # local/arsenal
-__append_dir_to_back $HOME/local/arsenal PATH
+__append_dir_back "$HOME"/local/arsenal PATH
 
 
 # texlive 2019
-__insert_dir_to_front /usr/local/texlive/2019/texmf-dist/doc/man MANPATH
-__insert_dir_to_front /usr/local/texlive/2019/texmf-dist/doc/info INFOPATH
-__insert_dir_to_front /usr/local/texlive/2019/texmf-dist/doc/info PATH
+TEXLIVE=/usr/local/texlive/2019
+__insert_dir_front "$TEXLIVE"/texmf-dist/doc/man  MANPATH
+__insert_dir_front "$TEXLIVE"/texmf-dist/doc/info INFOPATH
+__insert_dir_front "$TEXLIVE"/bin/x86_64-linux    PATH
 
 
 # cuda
 if __linux; then
-  __insert_dir_to_front /usr/local/cuda/bin PATH
-  __insert_dir_to_front /usr/local/cuda/lib64 LD_LIBRARY_PATH
+  CUDA=/usr/local/cuda
+  __insert_dir_front "$CUDA"/bin   PATH
+  __insert_dir_front "$CUDA"/lib64 LD_LIBRARY_PATH
 fi
 # pgi
 if __linux; then
-  __append_dir_to_back /opt/pgi/linux86-64-llvm/2019/bin PATH
-  __append_dir_to_back /opt/pgi/linux86-64-llvm/2019/lib LD_LIBRARY_PATH
+  PGI=/opt/pgi/linux86-64-llvm/19.10
+  __append_dir_back "$PGI"/bin PATH
+  __append_dir_back "$PGI"/lib LD_LIBRARY_PATH
+  __append_dir_back "$PGI"/man MANPATH
 fi
 # openmm
 if __linux; then
-  __insert_dir_to_front /usr/local/openmm/lib/plugins OPENMM_PLUGIN_DIR
-  __insert_dir_to_front /usr/local/openmm/lib LD_LIBRARY_PATH
+  __OMM_HOME=/usr/local/openmm
+  __insert_dir_front "$__OMM_HOME"/lib/plugins OPENMM_PLUGIN_DIR
+  __insert_dir_front "$__OMM_HOME"/lib         LD_LIBRARY_PATH
 fi

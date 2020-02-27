@@ -21,162 +21,151 @@ function __linux() {
 # contains(string, substring)
 # string contains substring? Yes: 0, No: 1.
 function __contains() {
-  string__=$1
-  substring__=$2
-  if test "${string__#*$substring__}" != "$string__"; then
+  local string=$1
+  local substring=$2
+  if test "${string#*$substring}" != "$string"; then
     return 0
   else
     return 1
   fi
 }
 function __add_dir_to_path() {
-  flag__=$1 # front__ or back__
-  dir__=$2
-  pathname__=$3
-  path__=$(eval echo -e "\$$pathname__")
-  if ! __contains $path__ $dir__; then
-    if [ -d $dir__ ]; then
-      if [ $flag__ = front__ ]; then
-        export $pathname__=$dir__:$path__
-      fi
-      if [ $flag__ = back__ ]; then
-        export $pathname__=$path__:$dir__
+  # flag = front / back
+  local flag=$1
+  local dir=$2
+  local pathname=$3
+  local path=$(eval echo -e "\$$pathname")
+  if ! __contains $path $dir; then
+    if [ -d $dir ]; then
+      if [ -z $path ]; then
+        # if path is empty
+        export $pathname=$dir
+      elif [ $flag = front ]; then
+        export $pathname=$dir:$path
+      elif [ $flag = back ]; then
+        export $pathname=$path:$dir
       fi
     fi
   fi
 }
-function __insert_dir_to_front() {
-  __add_dir_to_path front__ $1 $2
-}
-function __append_dir_to_back() {
-  __add_dir_to_path back__ $1 $2
-}
+function __insert_dir_front() { __add_dir_to_path front $1 $2; }
+function __append_dir_back()  { __add_dir_to_path back  $1 $2; }
 
 
 function __tar_cx() {
-  cx_ext__=cx-save__
-  opt__=$1
-  file__=$2
+  local cx_ext=cx-save__
+  # opt = c / x
+  local opt=$1
+  local file=$2
   shift
 
-  case $file__ in
+  case $file in
     *.tar)
-      if [ $opt__ = c ]; then
-        shift && COPYFILE_DISABLE=true tar -cf $file__ $*
-      elif [ $opt__ = x ]; then
-        tar -xvf $file__
+      if [ $opt = c ]; then
+        shift && COPYFILE_DISABLE=true tar -cf $file $*
+      elif [ $opt = x ]; then
+        tar -xvf $file
       fi ;;
 
     *.tar.bz | *.tar.bz2 | *.tbz | *.tbz2)
-      if [ $opt__ = c ]; then
-        shift && tar -cjf $file__ $*
-      elif [ $opt__ = x ]; then
-        tar -xvjf $file__
+      if [ $opt = c ]; then
+        shift && tar -cjf $file $*
+      elif [ $opt = x ]; then
+        tar -xvjf $file
       fi ;;
 
     *.bz | *.bz2)
-      if [ $opt__ = c ]; then
+      if [ $opt = c ]; then
         shift && bzip2 -k $*
-        mv $*.bz2 $*.$cx_ext__ && mv $*.$cx_ext__ $file__
-      elif [ $opt__ = x ]; then
-        bunzip2 $file__
+        mv $*.bz2 $*.$cx_ext && mv $*.$cx_ext $file
+      elif [ $opt = x ]; then
+        bunzip2 $file
       fi ;;
 
     *.tar.gz | *.tgz)
-      if [ $opt__ = c ]; then
-        shift && tar -czf $file__ $*
-      elif [ $opt__ = x ]; then
-        tar -xvzf $file__
+      if [ $opt = c ]; then
+        shift && tar -czf $file $*
+      elif [ $opt = x ]; then
+        tar -xvzf $file
       fi ;;
 
     *.gz)
-      if [ $opt__ = c ]; then
+      if [ $opt = c ]; then
         shift && gzip -k $*
-        mv $*.gz $*.$cx_ext__ && mv $*.$cx_ext__ $file__
-      elif [ $opt__ = x ]; then
-        gunzip $file__
+        mv $*.gz $*.$cx_ext && mv $*.$cx_ext $file
+      elif [ $opt = x ]; then
+        gunzip $file
       fi ;;
 
     *.xip)
-      if [ $opt__ = x ]; then
-        xip -x $file__
+      if [ $opt = x ]; then
+        xip -x $file
       fi ;;
 
     *.tar.xz | *.txz)
-      if [ $opt__ = c ]; then
-        shift && tar -cJf $file__ $*
-      elif [ $opt__ = x ]; then
-        tar -xvJf $file__
+      if [ $opt = c ]; then
+        shift && tar -cJf $file $*
+      elif [ $opt = x ]; then
+        tar -xvJf $file
       fi ;;
 
     *.xz)
-      if [ $opt__ = c ]; then
+      if [ $opt = c ]; then
         shift && xz -k $*
-        mv $*.xz $*.$cx_ext__ && mv $*.$cx_ext__ $file__
-      elif [ $opt__ = x ]; then
-        unxz $file__
+        mv $*.xz $*.$cx_ext && mv $*.$cx_ext $file
+      elif [ $opt = x ]; then
+        unxz $file
       fi ;;
 
     *.Z)
-      if [ $opt__ = c ]; then
-        shift && compress -c $* > $file__
-      elif [ $opt__ = x ]; then
-        uncompress $file__
+      if [ $opt = c ]; then
+        shift && compress -c $* > $file
+      elif [ $opt = x ]; then
+        uncompress $file
       fi ;;
 
     *.zip)
-      if [ $opt__ = c ]; then
-        shift && zip -r $file__ $*
-      elif [ $opt__ = x ]; then
-        unzip $file__
+      if [ $opt = c ]; then
+        shift && zip -r $file $*
+      elif [ $opt = x ]; then
+        unzip $file
       fi ;;
 
     *)
-      echo "Error: unsupported file type -- \"$file__\"." ;;
+      echo "Error: unsupported file type -- \"$file\"." ;;
   esac
 }
-function dotar() {
-  __tar_cx c $*
-}
-function untar() {
-  __tar_cx x $*
-}
-function viewtar() {
-  tar -tf $*
-}
+function dotar()   { __tar_cx c $*; }
+function untar()   { __tar_cx x $*; }
+function viewtar() { tar -tf    $*; }
 
 
 function __load-nvidia() {
   if __linux; then
     # arg = load / unload / status
-    arg__=$1
-    if [ $arg__ = 'status' ]; then
+    local arg=$1
+    if [ $arg = status ]; then
       # print current status
       cat /proc/acpi/bbswitch
       echo Running nvidia-smi...
       nvidia-smi
-    elif [ $arg__ = 'unload' ]; then
-      # unload a driver then turn the card off
+    elif [ $arg = unload ]; then
+      # unload the drivers then turn off the card
       sudo modprobe -r nvidia-uvm nvidia
       echo OFF | sudo tee /proc/acpi/bbswitch
-    elif [ $arg__ = 'load' ]; then
-      # turn on the card first then load a driver
+    elif [ $arg = load ]; then
+      # turn on the card first then load the drivers
       echo ON | sudo tee /proc/acpi/bbswitch
       sudo modprobe nvidia-uvm nvidia
     fi
   fi
 }
-function load-nvidia() {
-  __load-nvidia load
-}
-function unload-nvidia() {
-  __load-nvidia unload
-}
-function status-nvidia() {
-  __load-nvidia status
-}
+function gpu-on()     { __load-nvidia load;   }
+function gpu-off()    { __load-nvidia unload; }
+function gpu-status() { __load-nvidia status; }
 
 
-function git-tree() {
-  git log --oneline --decorate --all --graph
-}
+function git-tree() { git log --oneline --decorate --all --graph; }
+
+
+function catman() { man "$@" | col -b; }
