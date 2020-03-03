@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=False
+Exec=/usr/local/cuda/nsight-systems-2019.3.7.5/Host-x86_64/nsight-sys
+Name=Nsight Systems
+Comment=Nsight Systems
+Icon=/usr/local/cuda/nsight-systems-2019.3.7.5/Host-x86_64/nsight-sys.png

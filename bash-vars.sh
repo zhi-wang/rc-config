@@ -17,6 +17,13 @@ __insert_dir_front "$TEXLIVE"/texmf-dist/doc/info INFOPATH
 __insert_dir_front "$TEXLIVE"/bin/x86_64-linux    PATH
 
 
+# java 8u151
+if __linux; then
+  export JAVA_HOME=/usr/local/java/jdk1.8.0_151
+  __insert_dir_front "$JAVA_HOME"/bin PATH
+fi
+
+
 # cuda
 if __linux; then
   CUDA=/usr/local/cuda
