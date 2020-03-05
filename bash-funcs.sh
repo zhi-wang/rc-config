@@ -52,6 +52,37 @@ function __insert_dir_front() { __add_dir_to_path front $1 $2; }
 function __append_dir_back()  { __add_dir_to_path back  $1 $2; }
 
 
+if __linux; then
+function open() {
+  local file=$1
+
+  if [ "$file" = "." ] || [ "$file" = ".." ] || [ -d "$file" ] ; then
+    nautilus "$file"
+  elif [ -f "$file" ]; then
+    case "$file" in
+      *.html)
+        firefox "$file" &
+        ;;
+
+      *.sh | *.txt)
+        gedit "$file" &
+        ;;
+
+      *)
+        echo "The default program for $file is not set."
+        ;;
+    esac
+  else
+    case "$file" in
+      *.com* | *.net* | *.edu*)
+        firefox "$file" &
+        ;;
+    esac
+  fi
+}
+fi
+
+
 function __tar_cx() {
   local cx_ext=cx-save__
   # opt = c / x
@@ -59,7 +90,7 @@ function __tar_cx() {
   local file=$2
   shift
 
-  case $file in
+  case "$file" in
     *.tar)
       if [ $opt = c ]; then
         shift && COPYFILE_DISABLE=true tar -cf $file $*
