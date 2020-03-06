@@ -6,6 +6,11 @@ else
 fi
 
 
+# alias
+alias lo=exit
+alias url-github="firefox https://github.com/zhi-wang/tinker.gpu"
+
+
 # local/arsenal
 __append_dir_back "$HOME"/local/arsenal PATH
 
