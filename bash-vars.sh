@@ -7,6 +7,7 @@ fi
 
 
 # alias
+alias clear='printf "\033c"'
 alias lo=exit
 alias url-github="firefox https://github.com/zhi-wang/tinker.gpu"
 
