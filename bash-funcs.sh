@@ -173,6 +173,9 @@ function viewtar() { tar -tf    $*; }
 
 function __load-nvidia() {
   if __linux; then
+    echo Running prime-select query...
+    prime-select query
+    echo
     # arg = load / unload / status
     local arg=$1
     if [ $arg = status ]; then
@@ -200,3 +203,14 @@ function git-tree() { git log --oneline --decorate --all --graph; }
 
 
 function catman() { man "$@" | col -b; }
+
+
+function shut() {
+  if __linux; then
+    local query=$(prime-select query)
+    if [ $query = nvidia ]; then
+      sudo prime-select intel
+    fi
+    sleep 3; sudo shutdown -h now
+  fi
+}
