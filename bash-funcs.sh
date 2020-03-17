@@ -214,3 +214,10 @@ function shut() {
     sleep 3; sudo shutdown -h now
   fi
 }
+
+
+function te() {
+  if __linux; then
+    gedit "$@" &
+  fi
+}
