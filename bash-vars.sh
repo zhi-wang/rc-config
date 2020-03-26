@@ -33,6 +33,22 @@ if __linux; then
 fi
 
 
+# eclipse
+if __linux; then
+  if [ -d "$HOME"/local/eclipse ]; then
+    alias ec='"$HOME"/local/eclipse/eclipse --vm $(which java) &'
+  fi
+fi
+
+
+# intel
+if __linux; then
+  if [ -d /opt/intel/parallel_studio_xe_2019/bin ]; then
+    source /opt/intel/parallel_studio_xe_2019/bin/psxevars.sh &> /dev/null
+  fi
+fi
+
+
 # cuda
 if __linux; then
   CUDA=/usr/local/cuda
