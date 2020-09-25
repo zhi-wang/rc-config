@@ -61,6 +61,9 @@ if __linux; then
   __append_dir_back "$PGI"/bin PATH
   __append_dir_back "$PGI"/lib LD_LIBRARY_PATH
   __append_dir_back "$PGI"/man MANPATH
+  PGIMPI=/opt/pgi/linux86-64-llvm/2019/mpi/openmpi-3.1.3
+  __append_dir_back "$PGIMPI"/bin PATH
+  __append_dir_back "$PGIMPI"/lib LD_LIBRARY_PATH
 fi
 # openmm
 if __linux; then
