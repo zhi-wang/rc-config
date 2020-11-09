@@ -35,15 +35,15 @@ function __add_dir_to_path() {
   local dir=$2
   local pathname=$3
   local path=$(eval echo -e "\$$pathname")
-  if ! __contains $path $dir; then
-    if [ -d $dir ]; then
-      if [ -z $path ]; then
+  if ! __contains "$path" "$dir"; then
+    if [ -d "$dir" ]; then
+      if [ -z "$path" ]; then
         # if path is empty
-        export $pathname=:$dir
+        export $pathname=:"$dir"
       elif [ $flag = front ]; then
-        export $pathname=$dir:$path
+        export $pathname="$dir":"$path"
       elif [ $flag = back ]; then
-        export $pathname=$path:$dir
+        export $pathname="$path":"$dir"
       fi
     fi
   fi
