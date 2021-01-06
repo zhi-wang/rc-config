@@ -12,16 +12,19 @@ alias lh='ls -lh'
 alias lla='ls -la'
 alias lo=exit
 alias lt='ls -lat'
-alias url-github="firefox https://github.com/zhi-wang/tinker.gpu"
 
 
 # stty
-stty intr ^X
-stty lnext undef
+if __linux; then
+  stty intr ^X
+  stty lnext undef
+fi
 
 
 # local/arsenal
-__append_dir_back "$HOME/local/arsenal" PATH
+# local/bin
+__insert_dir_front "$HOME/local/arsenal" PATH
+__insert_dir_front "$HOME/local/bin"     PATH
 
 
 # texlive 2019
@@ -65,16 +68,20 @@ if __linux; then
   __insert_dir_front "$CUDA/lib64" LD_LIBRARY_PATH
 fi
 # pgi
+if [ -d /opt/pgi/linux86-64-llvm/19.10 ]; then
+  PGI=/opt/pgi/linux86-64-llvm/19.10
+  PGIMPI=/opt/pgi/linux86-64-llvm/2019/mpi/openmpi-3.1.3
+fi
+if [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/20.9 ]; then
+  PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/20.9/compilers
+  PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/20.9/comm_libs/mpi
+fi
 if __linux; then
-  # PGI=/opt/pgi/linux86-64-llvm/19.10
-  PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/2020/compilers
   __append_dir_back "$PGI/bin" PATH
   __append_dir_back "$PGI/lib" LD_LIBRARY_PATH
   __append_dir_back "$PGI/man" MANPATH
-  # PGIMPI=/opt/pgi/linux86-64-llvm/2019/mpi/openmpi-3.1.3
-  PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/2020/comm_libs/mpi
-  __append_dir_back "$PGIMPI/bin" PATH
-  __append_dir_back "$PGIMPI/lib" LD_LIBRARY_PATH
+  __append_dir_back "$PGIMPI/bin"       PATH
+  __append_dir_back "$PGIMPI/lib"       LD_LIBRARY_PATH
   __append_dir_back "$PGIMPI/share/man" MANPATH
 fi
 # openmm
