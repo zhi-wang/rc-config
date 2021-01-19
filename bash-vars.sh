@@ -1,13 +1,39 @@
-if [ -h "${BASH_SOURCE[0]}" ]; then
+function __bash() {
+  if [ $SHELL = /bin/bash ] || [ $SHELL = /usr/bin/bash ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+function __zsh() {
+  if [ $SHELL = /bin/zsh ] || [ $SHELL = /usr/bin/zsh ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+function __source0() {
+  if __bash; then
+    echo "${BASH_SOURCE[0]}"
+  elif __zsh; then
+    echo "${(%):-%x}"
+  fi
+}
+if [ -h "$(__source0)" ]; then
   # if it is a symlink
-  . $(dirname $(readlink -f "${BASH_SOURCE[0]}"))/bash-funcs.sh
+  . $(dirname $(readlink -f "$(__source0)"))/bash-funcs.sh
 else
-  . $(dirname "${BASH_SOURCE[0]}")/bash-funcs.sh
+  . $(dirname "$(__source0)")/bash-funcs.sh
 fi
 
 
 # alias
 alias clear='printf "\033c"'
+if __linux; then
+  alias ls='ls -F --color=auto'
+else
+  alias ls='ls -FG'
+fi
 alias lh='ls -lh'
 alias lla='ls -la'
 alias lo=exit
@@ -18,6 +44,12 @@ alias lt='ls -lat'
 if __linux; then
   stty intr ^X
   stty lnext undef
+fi
+
+
+# PS1
+if __zsh; then
+  PS1='%n@%m %5~%(#.#.$) '
 fi
 
 
