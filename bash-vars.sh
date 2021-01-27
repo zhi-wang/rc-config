@@ -42,8 +42,10 @@ alias lt='ls -lat'
 
 # stty
 if __linux; then
-  stty intr ^X
-  stty lnext undef
+  if __interact; then
+    stty intr ^X
+    stty lnext undef
+  fi
 fi
 
 

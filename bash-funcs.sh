@@ -16,6 +16,18 @@ function __linux() {
     return 1
   fi
 }
+function __interact() {
+  # detect interactive shell
+  case "$-" in
+    *i*)
+      return 0
+      ;;
+
+    *)
+      return 1
+      ;;
+  esac
+}
 
 
 # contains(string, substring)
