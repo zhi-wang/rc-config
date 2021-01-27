@@ -34,6 +34,7 @@ if __linux; then
 else
   alias ls='ls -FG'
 fi
+alias la='ls -a'
 alias lh='ls -lh'
 alias lla='ls -la'
 alias lo=exit
