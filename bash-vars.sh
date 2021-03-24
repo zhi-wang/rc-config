@@ -69,6 +69,14 @@ __insert_dir_front "$TEXLIVE/texmf-dist/doc/info" INFOPATH
 __insert_dir_front "$TEXLIVE/bin/x86_64-linux"    PATH
 
 
+# tinker
+if __linux; then
+  __insert_dir_front "$HOME/tinker/bin/linux" PATH
+elif __macos; then
+  __insert_dir_front "$HOME/tinker/bin/macos" PATH
+fi
+
+
 # java 8u151
 if __linux; then
   export JAVA_HOME=/usr/local/java/jdk1.8.0_151
