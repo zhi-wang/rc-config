@@ -123,6 +123,10 @@ if [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/20.11 ]; then
   PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/20.11/compilers
   PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/20.11/comm_libs/mpi
 fi
+if [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/21.7 ]; then
+  PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/21.7/compilers
+  PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/21.7/comm_libs/mpi
+fi
 if __linux; then
   __append_dir_back "$PGI/bin" PATH
   __append_dir_back "$PGI/lib" LD_LIBRARY_PATH
