@@ -2,7 +2,7 @@
 #     read by login shells
 #     one-time setup, e.g. load environment variables once per session
 #   .bashrc
-#       per-shell stuff put in .bashrc
+#     per-shell stuff put in .bashrc
 
 
 # Linux
