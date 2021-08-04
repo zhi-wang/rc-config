@@ -60,10 +60,19 @@ fi
 # local/bin
 __insert_dir_front "$HOME/local/arsenal" PATH
 __insert_dir_front "$HOME/local/bin"     PATH
+__append_dir_back  "$HOME/.local/bin"    PATH
 
 
-# texlive 2019
-TEXLIVE=/usr/local/texlive/2019
+# texlive
+if [ -d /usr/local/texlive/2019 ]; then
+  TEXLIVE=/usr/local/texlive/2019
+fi
+if [ -d /usr/local/texlive/2020 ]; then
+  TEXLIVE=/usr/local/texlive/2020
+fi
+if [ -d /usr/local/texlive/2021 ]; then
+  TEXLIVE=/usr/local/texlive/2021
+fi
 __insert_dir_front "$TEXLIVE/texmf-dist/doc/man"  MANPATH
 __insert_dir_front "$TEXLIVE/texmf-dist/doc/info" INFOPATH
 __insert_dir_front "$TEXLIVE/bin/x86_64-linux"    PATH
