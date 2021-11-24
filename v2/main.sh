@@ -39,6 +39,7 @@ __this_dir() {
 ### system ###
 . "$(__this_dir)"/20-os.sh
 . "$(__this_dir)"/20-stty.sh
+source "$(__this_dir)"/20-ps1.sh
 
 
 ### function ###
@@ -55,3 +56,6 @@ __this_dir() {
 
 ### PATH ###
 . "$(__this_dir)"/70-homebrew.sh
+. "$(__this_dir)"/70-llvm.sh
+. "$(__this_dir)"/70-python.sh
+. "$(__this_dir)"/70-vscode.sh
