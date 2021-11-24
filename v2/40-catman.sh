@@ -1,0 +1,3 @@
+catman() {
+    man "$@" | col -b
+}
