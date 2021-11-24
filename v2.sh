@@ -39,7 +39,7 @@ __this_dir() {
 ### system ###
 source "$(__this_dir)"/v2/20-os.sh
 source "$(__this_dir)"/v2/20-stty.sh
-source "$(__this_dir)"/v2/20-ps1.sh
+source "$(__this_dir)"/v2/20-zsh.sh
 
 
 ### function ###
