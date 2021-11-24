@@ -55,7 +55,10 @@ source "$(__this_dir)"/20-ps1.sh
 
 
 ### PATH ###
+. "$(__this_dir)"/70-cuda.sh
 . "$(__this_dir)"/70-homebrew.sh
 . "$(__this_dir)"/70-llvm.sh
+. "$(__this_dir)"/70-openmm.sh
 . "$(__this_dir)"/70-python.sh
+. "$(__this_dir)"/70-texlive.sh
 . "$(__this_dir)"/70-vscode.sh
