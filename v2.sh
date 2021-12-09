@@ -59,6 +59,7 @@ source "$(__this_dir)"/v2/70-cuda.sh
 source "$(__this_dir)"/v2/70-eclipse.sh
 source "$(__this_dir)"/v2/70-homebrew.sh
 source "$(__this_dir)"/v2/70-intel.sh
+source "$(__this_dir)"/v2/70-jupyter.sh
 source "$(__this_dir)"/v2/70-llvm.sh
 source "$(__this_dir)"/v2/70-local.sh
 source "$(__this_dir)"/v2/70-openmm.sh
