@@ -1,5 +1,5 @@
 if __linux; then
-    if [ -d /usr/local/texlive/2021 ]; then
+      if [ -d /usr/local/texlive/2021 ]; then
         TEXLIVE=/usr/local/texlive/2021
     elif [ -d /usr/local/texlive/2020 ]; then
         TEXLIVE=/usr/local/texlive/2020
