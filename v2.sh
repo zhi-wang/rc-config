@@ -66,5 +66,6 @@ source "$(__this_dir)"/v2/70-openmm.sh
 source "$(__this_dir)"/v2/70-pgi.sh
 source "$(__this_dir)"/v2/70-python.sh
 source "$(__this_dir)"/v2/70-texlive.sh
+source "$(__this_dir)"/v2/70-texmacs.sh
 source "$(__this_dir)"/v2/70-tinker.sh
 source "$(__this_dir)"/v2/70-vscode.sh
