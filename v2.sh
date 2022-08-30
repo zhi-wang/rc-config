@@ -55,7 +55,7 @@ source "$(__this_dir)"/v2/60-alias.sh
 
 
 ### PATH ###
-source "$(__this_dir)"/v2/70-ccat.sh
+source "$(__this_dir)"/v2/70-bat.sh
 source "$(__this_dir)"/v2/70-cuda.sh
 source "$(__this_dir)"/v2/70-eclipse.sh
 source "$(__this_dir)"/v2/70-homebrew.sh
