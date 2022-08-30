@@ -1,4 +1,7 @@
-  if [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/22.2 ]; then
+  if [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/22.5 ]; then
+    PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/22.5/compilers
+    PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/22.5/comm_libs/mpi
+elif [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/22.2 ]; then
     PGI=/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers
     PGIMPI=/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs/mpi
 elif [ -d /opt/nvidia/hpc_sdk/Linux_x86_64/21.7 ]; then
