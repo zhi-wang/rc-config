@@ -58,6 +58,7 @@ source "$(__this_dir)"/v2/60-alias.sh
 source "$(__this_dir)"/v2/70-bat.sh
 source "$(__this_dir)"/v2/70-cmake.sh
 source "$(__this_dir)"/v2/70-cuda.sh
+source "$(__this_dir)"/v2/70-doxygen.sh
 source "$(__this_dir)"/v2/70-eclipse.sh
 source "$(__this_dir)"/v2/70-homebrew.sh
 source "$(__this_dir)"/v2/70-intel.sh
