@@ -17,3 +17,12 @@ __linux() {
         return 1
     fi
 }
+
+
+__wsl() {
+    if uname -r | grep -qi microsoft; then
+        return 0
+    else
+        return 1
+    fi
+}

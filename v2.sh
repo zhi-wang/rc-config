@@ -45,6 +45,7 @@ source "$(__this_dir)"/v2/20-zsh.sh
 ### function ###
 source "$(__this_dir)"/v2/40-catman.sh
 source "$(__this_dir)"/v2/40-git.sh
+source "$(__this_dir)"/v2/40-open.sh
 source "$(__this_dir)"/v2/40-path.sh
 source "$(__this_dir)"/v2/40-tar.sh
 source "$(__this_dir)"/v2/40-te.sh
