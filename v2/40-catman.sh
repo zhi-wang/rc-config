@@ -1,3 +1,3 @@
 catman() {
-    man "$@" | col -b
+	man "$@" | col -b
 }
