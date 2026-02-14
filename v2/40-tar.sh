@@ -1,5 +1,10 @@
 __tar_cx() {
-    local cx_ext=cx-save__
+    # BSD tar
+    export COPYFILE_DISABLE=true
+    export COPYFILE_IDOFF=true
+    # GNU tar
+    local gnu_opts="--exclude='._*' --exclude='.DS_Store'"
+
     local opt=$1 # c/x
     local file=$2
     shift
@@ -7,39 +12,23 @@ __tar_cx() {
     case "$file" in
         *.tar)
             if [ $opt = c ]; then
-                shift && COPYFILE_DISABLE=true tar -cf "$file" $*
+                shift && tar $gnu_opts -cf "$file" "$@"
             elif [ $opt = x ]; then
                 tar -xvf "$file"
             fi
             ;;
         *.tar.bz | *.tar.bz2 | *.tbz | *.tbz2)
             if [ $opt = c ]; then
-                shift && tar -cjf "$file" $*
+                shift && tar $gnu_opts -cjf "$file" "$@"
             elif [ $opt = x ]; then
                 tar -xvjf "$file"
             fi
             ;;
-        *.bz | *.bz2)
-            if [ $opt = c ]; then
-                shift && bzip2 -k $*
-                mv $*.bz2 $*.$cx_ext && mv $*.$cx_ext "$file"
-            elif [ $opt = x ]; then
-                bunzip2 "$file"
-            fi
-            ;;
         *.tar.gz | *.tgz)
             if [ $opt = c ]; then
-                shift && tar -czf "$file" $*
+                shift && tar $gnu_opts -czf "$file" "$@"
             elif [ $opt = x ]; then
                 tar -xvzf "$file"
-            fi
-            ;;
-        *.gz)
-            if [ $opt = c ]; then
-                shift && gzip -k $*
-                mv $*.gz $*.$cx_ext && mv $*.$cx_ext "$file"
-            elif [ $opt = x ]; then
-                gunzip "$file"
             fi
             ;;
         *.xip)
@@ -49,22 +38,14 @@ __tar_cx() {
             ;;
         *.tar.xz | *.txz)
             if [ $opt = c ]; then
-                shift && tar -cJf "$file" $*
+                shift && tar $gnu_opts -cJf "$file" "$@"
             elif [ $opt = x ]; then
                 tar -xvJf "$file"
             fi
             ;;
-        *.xz)
-            if [ $opt = c ]; then
-                shift && xz -k $*
-                mv $*.xz $*.$cx_ext && mv $*.$cx_ext "$file"
-            elif [ $opt = x ]; then
-                unxz "$file"
-            fi
-            ;;
         *.zip)
             if [ $opt = c ]; then
-                shift && zip -r "$file" $*
+                shift && zip -r "$file" "$@"
             elif [ $opt = x ]; then
                 unzip "$file"
             fi
@@ -76,13 +57,13 @@ __tar_cx() {
 }
 
 dotar() {
-    __tar_cx c $*
+    __tar_cx c "$@"
 }
 
 untar() {
-    __tar_cx x $*
+    __tar_cx x "$@"
 }
 
 viewtar() {
-    tar -tf $*;
+    tar -tf "$@"
 }

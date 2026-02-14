@@ -1,7 +1,7 @@
   if which bat >/dev/null; then
-    alias bat='bat -P'
+	alias bat='bat -P'
 elif which batcat >/dev/null; then
-    alias bat=batcat
+	alias bat=batcat
 elif which pygmentize >/dev/null; then
-    alias bat='pygmentize -g'
+	alias bat='pygmentize -g'
 fi

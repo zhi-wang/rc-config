@@ -1,6 +1,6 @@
 alias clear='printf "\033c"'
 
-if __linux; then
+  if __linux; then
     alias ls='ls -F --color=auto'
 elif __macos; then
     alias ls='ls -FG'
