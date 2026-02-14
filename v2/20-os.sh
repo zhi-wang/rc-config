@@ -1,8 +1,5 @@
-__system=$(uname -s)
-
-
 __macos() {
-    if [ $__system = Darwin ]; then
+    if [ $(uname -s) = Darwin ]; then
         return 0
     else
         return 1
@@ -11,7 +8,7 @@ __macos() {
 
 
 __linux() {
-    if [ $__system = Linux ]; then
+    if [ $(uname -s) = Linux ]; then
         return 0
     else
         return 1

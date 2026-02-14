@@ -6,9 +6,9 @@ if __wsl; then
             *.pdf)
                 wslview $file
                 ;;
-
             *)
-                echo "Error: unsupported file type -- \"$file\"." ;;
+                echo "Error: unsupported file type -- \"$file\"."
+                ;;
         esac
     }
 fi

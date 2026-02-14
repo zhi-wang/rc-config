@@ -1,5 +1,5 @@
 if __linux; then
-    CUDA=/usr/local/cuda
-    __insert_paths PATH            "$CUDA/bin"
-    __insert_paths LD_LIBRARY_PATH "$CUDA/lib64"
+    __CUDA_diR=/usr/local/cuda
+    __insert_paths PATH            "$__CUDA_diR/bin"
+    __insert_paths LD_LIBRARY_PATH "$__CUDA_diR/lib64"
 fi

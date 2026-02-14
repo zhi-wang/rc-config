@@ -7,87 +7,71 @@ __tar_cx() {
     case "$file" in
         *.tar)
             if [ $opt = c ]; then
-                shift && COPYFILE_DISABLE=true tar -cf $file $*
+                shift && COPYFILE_DISABLE=true tar -cf "$file" $*
             elif [ $opt = x ]; then
-                tar -xvf $file
+                tar -xvf "$file"
             fi
             ;;
-
         *.tar.bz | *.tar.bz2 | *.tbz | *.tbz2)
             if [ $opt = c ]; then
-                shift && tar -cjf $file $*
+                shift && tar -cjf "$file" $*
             elif [ $opt = x ]; then
-                tar -xvjf $file
+                tar -xvjf "$file"
             fi
             ;;
-
         *.bz | *.bz2)
             if [ $opt = c ]; then
                 shift && bzip2 -k $*
-                mv $*.bz2 $*.$cx_ext && mv $*.$cx_ext $file
+                mv $*.bz2 $*.$cx_ext && mv $*.$cx_ext "$file"
             elif [ $opt = x ]; then
-                bunzip2 $file
+                bunzip2 "$file"
             fi
             ;;
-
         *.tar.gz | *.tgz)
             if [ $opt = c ]; then
-                shift && tar -czf $file $*
+                shift && tar -czf "$file" $*
             elif [ $opt = x ]; then
-                tar -xvzf $file
+                tar -xvzf "$file"
             fi
             ;;
-
         *.gz)
             if [ $opt = c ]; then
                 shift && gzip -k $*
-                mv $*.gz $*.$cx_ext && mv $*.$cx_ext $file
+                mv $*.gz $*.$cx_ext && mv $*.$cx_ext "$file"
             elif [ $opt = x ]; then
-                gunzip $file
+                gunzip "$file"
             fi
             ;;
-
         *.xip)
             if [ $opt = x ]; then
-                xip -x $file
+                xip -x "$file"
             fi
             ;;
-
         *.tar.xz | *.txz)
             if [ $opt = c ]; then
-                shift && tar -cJf $file $*
+                shift && tar -cJf "$file" $*
             elif [ $opt = x ]; then
-                tar -xvJf $file
+                tar -xvJf "$file"
             fi
             ;;
-
         *.xz)
             if [ $opt = c ]; then
                 shift && xz -k $*
-                mv $*.xz $*.$cx_ext && mv $*.$cx_ext $file
+                mv $*.xz $*.$cx_ext && mv $*.$cx_ext "$file"
             elif [ $opt = x ]; then
-                unxz $file
+                unxz "$file"
             fi
             ;;
-
-        *.Z)
-            if [ $opt = c ]; then
-                shift && compress -c $* > $file
-            elif [ $opt = x ]; then
-                uncompress $file
-            fi
-            ;;
-
         *.zip)
             if [ $opt = c ]; then
-                shift && zip -r $file $*
+                shift && zip -r "$file" $*
             elif [ $opt = x ]; then
-                unzip $file
+                unzip "$file"
             fi
             ;;
-
         *)
-            echo "Error: unsupported file type -- \"$file\"." ;;
+            echo "Error: unsupported file type -- \"$file\"."
+            ;;
     esac
 }
 

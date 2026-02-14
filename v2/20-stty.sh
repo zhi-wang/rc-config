@@ -4,14 +4,15 @@ __interact() {
         *i*)
             return 0
             ;;
-
         *)
             return 1
             ;;
     esac
 }
 
-if __linux; then
+
+# if __linux; then
+if false; then
     if __interact; then
         stty intr ^x
         stty lnext undef
