@@ -1,4 +1,6 @@
-  if [ -d /usr/local/texlive/2025 ]; then
+  if [ -d /usr/local/texlive/2026 ]; then
+	TEXLIVE=/usr/local/texlive/2026
+elif [ -d /usr/local/texlive/2025 ]; then
 	TEXLIVE=/usr/local/texlive/2025
 elif [ -d /usr/local/texlive/2024 ]; then
 	TEXLIVE=/usr/local/texlive/2024
